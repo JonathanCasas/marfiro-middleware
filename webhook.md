@@ -1,0 +1,42 @@
+ {
+    "messageId": "string",
+    "remoteJid": "string",
+    "sender": "string",
+    "pushName": "string",
+    "messageType": "string",
+    "status": "string",
+    "messageTimestamp": 123456789,
+    "instanceId": "string",
+    "source": "string",
+    "contactPhone": "string",
+    "body": "string",
+    "caption": "string",
+    "url": "string",
+    "from": "string",
+    "to": "string",
+    "isForwarded": true,
+    "fromMe": true,
+    "hasReaction": false,
+    "isGif": false,
+    "author": "string",
+    "hasMedia": true,
+    "mediaKey": "string",
+    "ack": 1,
+    "mimetype": "string",
+    "latitude": 12.34,
+    "longitude": 56.78,
+    "sentFromEvolution": false,
+    "phone": {
+      // Estructura de PhoneDto (no incluida aquí, depende de tu implementación)
+    },
+    "messageFile": {
+      "path": "string",
+      "originalName": "string",
+      "contentType": "string",
+      "size": 123,
+      "content": "string",
+      "url": "string",
+      "storageId": "string"
+    },
+    "type": "TEXT" // Puede ser uno de: TEXT, IMAGE, PDF, LOCATION, AUDIO, VIDEO, MEDIA, CONTACT, NOTIFICATION
+  }
