@@ -6,6 +6,11 @@ const platformService = require("../services/platform.service");
  * Maneja el envío de mensajes directos desde SuiteCRM
  */
 const handleDirectMessage = async (req, res) => {
+  console.log(
+    `[SuiteCRM] Incoming Direct Message Request: ${req.method} ${req.originalUrl}`,
+  );
+  console.log(`[SuiteCRM] Payload:`, JSON.stringify(req.body, null, 2));
+
   try {
     const { accountId, phone, contactPhone, type } = req.params;
     const payload = req.body;
@@ -31,6 +36,11 @@ const handleDirectMessage = async (req, res) => {
  * Maneja el encolamiento de mensajes (Bulk) desde SuiteCRM
  */
 const handleQueueMessage = async (req, res) => {
+  console.log(
+    `[SuiteCRM] Incoming Queue Message Request: ${req.method} ${req.originalUrl}`,
+  );
+  console.log(`[SuiteCRM] Payload:`, JSON.stringify(req.body, null, 2));
+
   try {
     const { phone, type } = req.params;
     const payload = req.body;
