@@ -9,7 +9,11 @@ class PlatformService {
   /**
    * Public: Procesa y envía un mensaje directo desde SuiteCRM
    */
-  async forwardDirectMessage({ phone, contactPhone, type }, payload) {
+  async forwardDirectMessage(
+    { phone, contactPhone, type },
+    payload,
+    authHeader,
+  ) {
     let finalType = this._getPlatformTypePath(type);
     const path = `/api/v1/chat/${phone}/${finalType}`;
     const platformData = this._createPlatformPayload(
@@ -18,17 +22,22 @@ class PlatformService {
       payload,
     );
 
-    return await this._sendRequest(path, platformData);
+    return await this._sendRequest(path, platformData, authHeader);
   }
 
   /**
    * Public: Procesa mensajes en bloque (Bulk) de SuiteCRM
    */
-  async forwardQueueMessage({ phone, type }, payload) {
+  async forwardQueueMessage({ phone, type }, payload, authHeader) {
     const results = [];
 
     for (const item of payload.items) {
-      const itemResults = await this._processBulkItem(phone, type, item);
+      const itemResults = await this._processBulkItem(
+        phone,
+        type,
+        item,
+        authHeader,
+      );
       results.push(...itemResults);
     }
 
@@ -43,7 +52,7 @@ class PlatformService {
   /**
    * Procesa un único item de la cola (que puede tener múltiples teléfonos)
    */
-  async _processBulkItem(phone, type, item) {
+  async _processBulkItem(phone, type, item, authHeader) {
     const phones = Array.isArray(item.phones) ? item.phones : [item.phones];
     const itemResults = [];
 
@@ -58,7 +67,7 @@ class PlatformService {
       );
 
       try {
-        const result = await this._sendRequest(path, platformData);
+        const result = await this._sendRequest(path, platformData, authHeader);
         itemResults.push({ number: targetNumber, success: true, result });
       } catch (error) {
         itemResults.push({
@@ -129,11 +138,11 @@ class PlatformService {
   /**
    * Centraliza las peticiones HTTP con Axios
    */
-  async _sendRequest(path, data) {
+  async _sendRequest(path, data, authHeader) {
     try {
       const response = await axios.post(`${this.baseUrl}${path}`, data, {
         headers: {
-          Authorization: `Bearer ${this.token}`,
+          Authorization: authHeader || `Bearer ${this.token}`,
           "Content-Type": "application/json",
         },
       });
