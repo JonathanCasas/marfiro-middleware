@@ -143,7 +143,9 @@ class PlatformService {
    */
   async _sendRequest(path, data, authHeader) {
     try {
-      const response = await axios.post(`${this.baseUrl}${path}`, data, {
+      let finalUrl = `${this.baseUrl}${path}`;
+      console.log(`[Platform] Forwarding Direct Message: ${finalUrl}`);
+      const response = await axios.post(finalUrl, data, {
         headers: {
           Authorization: authHeader || `Bearer ${this.token}`,
           "Content-Type": "application/json",
