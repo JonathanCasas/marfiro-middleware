@@ -48,7 +48,11 @@ class SuiteCRMService {
    */
   async _sendRequest(path, data, authHeader) {
     try {
-      const response = await axios.post(`${this.baseUrl}${path}`, data, {
+      let finalUrl = `${this.baseUrl}${path}`;
+      console.log(`[SuiteCRM] Forwarding Webhook: ${finalUrl}`);
+      console.log(`[SuiteCRM] Payload:`, JSON.stringify(data, null, 2));
+
+      const response = await axios.post(finalUrl, data, {
         headers: {
           Authorization: authHeader || `Bearer ${this.token}`,
           "Content-Type": "application/json",
