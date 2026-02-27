@@ -13,8 +13,12 @@ const platformRoutes = require("./routes/platform.routes");
 app.use("/api/v1/suitecrm", suitecrmRoutes);
 app.use("/api/v1/platform", platformRoutes);
 
-app.get("/health", (req, res) => {
-  res.json({ status: "OK", timestamp: new Date() });
+app.get(["/", "/health"], (req, res) => {
+  res.json({
+    status: "OK",
+    service: "marfiro-middleware",
+    timestamp: new Date(),
+  });
 });
 
 app.listen(PORT, () => {
