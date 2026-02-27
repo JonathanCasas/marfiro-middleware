@@ -22,6 +22,9 @@ class PlatformService {
       payload,
     );
 
+    console.log(`[Platform] Forwarding Direct Message: ${path}`);
+    console.log(`[Platform] Payload:`, JSON.stringify(platformData, null, 2));
+
     return await this._sendRequest(path, platformData, authHeader);
   }
 
