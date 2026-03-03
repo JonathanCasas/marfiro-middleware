@@ -10,9 +10,9 @@ class SuiteCRMService {
    * Public: Procesa el webhook recibido de Platform y lo envía a SuiteCRM
    */
   async sendToSuiteCRM(platformWebhook, authHeader) {
-    console.log("[SuiteCRM] sendToSuiteCRM", platformWebhook);
+    console.log("[SuiteCRM] sendToSuiteCRM", JSON.stringify(platformWebhook));
     const transformedData = this._transformWebhookData(platformWebhook);
-    console.log("[SuiteCRM] transformedData", transformedData);
+    console.log("[SuiteCRM] transformedData", JSON.stringify(transformedData));
     return await this._sendRequest(transformedData, authHeader);
   }
 
