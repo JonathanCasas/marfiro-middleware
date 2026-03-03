@@ -20,23 +20,28 @@ class SuiteCRMService {
    * Transforma la estructura de Platform a la que espera SuiteCRM
    */
   _transformWebhookData(data) {
+    // Si la data viene envuelta en un objeto 'message', la extraemos
+    const payload = data.message || data;
+
     // Determinamos el cuerpo del mensaje: preferimos 'body', si no 'caption'
-    const messageBody = data.body || data.caption || "";
+    const messageBody = payload.body || payload.caption || "";
 
     // Determinamos la dirección del mensaje basado en 'fromMe'
-    const direction = data.fromMe ? "OUTPUT" : "INPUT";
+    const direction = payload.fromMe ? "OUTPUT" : "INPUT";
 
     // Determinamos la URL del adjunto (priorizando la del objeto messageFile si existe)
-    const attachmentUrl = data.url || data.messageFile?.url || null;
+    const attachmentUrl = payload.url || payload.messageFile?.url || null;
 
     return {
       message: {
-        contactPhone: data.contactPhone || data.remoteJid?.split("@")[0],
+        contactPhone: payload.contactPhone || payload.remoteJid?.split("@")[0],
         body: messageBody,
         direction: direction,
         url: attachmentUrl,
         subject:
-          data.type !== "TEXT" ? `WhatsApp ${data.type}` : "WhatsApp Message",
+          payload.type !== "TEXT"
+            ? `WhatsApp ${payload.type}`
+            : "WhatsApp Message",
       },
     };
   }
