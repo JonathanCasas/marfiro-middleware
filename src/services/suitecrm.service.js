@@ -12,11 +12,8 @@ class SuiteCRMService {
   async sendToSuiteCRM(platformWebhook, authHeader) {
     console.log("[SuiteCRM] sendToSuiteCRM", platformWebhook);
     const transformedData = this._transformWebhookData(platformWebhook);
-    return await this._sendRequest(
-      "/webhook-receiver",
-      transformedData,
-      authHeader,
-    );
+    console.log("[SuiteCRM] transformedData", transformedData);
+    return await this._sendRequest(transformedData, authHeader);
   }
 
   /**
@@ -47,7 +44,7 @@ class SuiteCRMService {
   /**
    * Centraliza las peticiones HTTP hacia SuiteCRM
    */
-  async _sendRequest(path, data, authHeader) {
+  async _sendRequest(data, authHeader) {
     try {
       let finalUrl = `${this.baseUrl}`;
       console.log(`[SuiteCRM] Forwarding Webhook: ${finalUrl}`);
