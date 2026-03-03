@@ -10,6 +10,7 @@ class SuiteCRMService {
    * Public: Procesa el webhook recibido de Platform y lo envía a SuiteCRM
    */
   async sendToSuiteCRM(platformWebhook, authHeader) {
+    console.log("[SuiteCRM] sendToSuiteCRM", platformWebhook);
     const transformedData = this._transformWebhookData(platformWebhook);
     return await this._sendRequest(
       "/webhook-receiver",
@@ -48,7 +49,7 @@ class SuiteCRMService {
    */
   async _sendRequest(path, data, authHeader) {
     try {
-      let finalUrl = `${this.baseUrl}${path}`;
+      let finalUrl = `${this.baseUrl}`;
       console.log(`[SuiteCRM] Forwarding Webhook: ${finalUrl}`);
       console.log(`[SuiteCRM] Payload:`, JSON.stringify(data, null, 2));
 
