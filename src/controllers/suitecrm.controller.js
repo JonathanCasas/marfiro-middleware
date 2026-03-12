@@ -46,7 +46,7 @@ const handleQueueMessage = async (req, res) => {
     const payload = req.body;
 
     const authHeader = req.headers.authorization;
-    console.log("[SuiteCRM] handleQueueMessage", JSON.stringify(payload));
+    console.log("[SuiteCRM] handleQueueMessage Before process message.");
     const result = await platformService.forwardQueueMessage(
       { phone, type },
       payload,
@@ -55,6 +55,7 @@ const handleQueueMessage = async (req, res) => {
 
     res.status(200).json(result);
   } catch (error) {
+    console.log("Error processing message", error);
     // console.log("[SuiteCRM] handleQueueMessage error", error);
     // console.log("[SuiteCRM] handleQueueMessage error", error.message);
     // console.log("[SuiteCRM] handleQueueMessage error", error.stack);
