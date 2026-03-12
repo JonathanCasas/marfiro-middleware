@@ -62,7 +62,7 @@ class PlatformService {
     const itemResults = [];
 
     for (const targetNumber of phones) {
-      let finalType = his._getPlatformTypePath(type);
+      let finalType = this._getPlatformTypePath(type);
       const path = `/api/v1/bulk/chat/${phone}/${finalType}`;
       const platformData = this._createPlatformPayload(
         type,
