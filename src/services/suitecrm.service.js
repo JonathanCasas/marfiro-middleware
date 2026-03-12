@@ -64,7 +64,7 @@ class SuiteCRMService {
       return response.data;
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.message;
-      console.error("Error forwarding to SuiteCRM:", errorMsg);
+      console.error("Error forwarding to SuiteCRM:", errorMsg, error);
       throw new Error(`SuiteCRM Error: ${errorMsg}`);
     }
   }

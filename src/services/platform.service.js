@@ -44,6 +44,8 @@ class PlatformService {
       results.push(...itemResults);
     }
 
+    console.log("[Platform] Results:", JSON.stringify(results, null, 2));
+
     return {
       total: results.length,
       success: results.filter((r) => r.success).length,
@@ -70,6 +72,11 @@ class PlatformService {
       );
 
       try {
+        console.log("[Platform] Forwarding Direct Message:", path);
+        console.log(
+          "[Platform] Payload:",
+          JSON.stringify(platformData, null, 2),
+        );
         const result = await this._sendRequest(path, platformData, authHeader);
         itemResults.push({ number: targetNumber, success: true, result });
       } catch (error) {
