@@ -56,6 +56,8 @@ const handleQueueMessage = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     console.log("[SuiteCRM] handleQueueMessage error", error);
+    console.log("[SuiteCRM] handleQueueMessage error", error.message);
+    console.log("[SuiteCRM] handleQueueMessage error", error.stack);
     res.status(500).json({
       success: false,
       error: error.message,
